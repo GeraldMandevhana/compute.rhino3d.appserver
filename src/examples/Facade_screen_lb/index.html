@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <link rel="icon" href="data:,">
+        <link rel="stylesheet" href="style.css" />
         <title>Facade_screeen_lb.gh</title>
         <style>
             body {
@@ -37,29 +38,34 @@
       <div id="loader"></div> 
       <div id="container">
           <div id="overlay">
-              <div>
-                <label for="Screen_length">Screen_length</label>
-                <input type="range" id="Screen_length" min="5" max="30" value="10" step="1">
+              <div class="range-wrap">
+                <label for="Screen_length">Screen_length (m)</label>
+                <input type="range" class="range" id="Screen_length" min="5" max="30" value="10" step="1">
+                <output class="bubble"></output>
               </div>
-              <div>
-                <label for="Screen_height">Screen_height</label>
-                <input type="range" id="Screen_height" min="2" max="10" value="2" step="1">
+              <div class="range-wrap">
+                <label for="Screen_height">Screen_height (m)</label>
+                <input type="range" class="range" id="Screen_height" min="2" max="10" value="2" step="1">
+                <output class="bubble"></output>
               </div>
-              <div>
-                <label for="Facade_depth">Facade_depth</label>
-                <input type="range" id="Facade_depth" min="1" max="10" value="3" step="1">
+              <div class="range-wrap">
+                <label for="Facade_depth">Facade_depth (m)</label>
+                <input type="range" class="range" id="Facade_depth" min="1" max="10" value="3" step="1">
+                <output class="bubble"></output>
               </div>
               <!--<div>
                 <label for="Attractor_strength">Attractor_strength</label>
                 <input type="range" id="Attractor_strength" min="1" max="10" value="6" step="1">
               </div>-->
-              <div>
-                <label for="RotationAngle">RotationAngle</label>
-                <input type="range" id="RotationAngle" min="0" max="180" value="180" step="1">
+              <div class="range-wrap">
+                <label for="RotationAngle">Rotation_Angle (deg)</label>
+                <input type="range" class="range" id="RotationAngle" min="0" max="180" value="180" step="1">
+                <output class="bubble"></output>
               </div>
-              <div>
-                <label for="ApertureScale">ApertureScale</label>
-                <input type="range" id="ApertureScale"  min="5" max="95" value="60" step="1">
+              <div class="range-wrap"> 
+                <label for="ApertureScale">Aperture_Scale (%)</label>
+                <input type="range" class="range" id="ApertureScale"  min="5" max="95" value="60" step="1">
+                <output class="bubble"></output>
               </div>
               <div><button id="downloadButton" disabled>Download</button></div>
               <div><a href="Facade_screen.gh" download="Facade_screen.gh.html">Save source code</a></div>
