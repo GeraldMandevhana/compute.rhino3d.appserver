@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="icon" href="data:,">
+        <link rel="stylesheet" href="style.css" />
+        <title>Facade_screeen_lb.gh</title>
+        <style>
+            body {
+                margin: 0;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+            canvas { width: 100%; height: 100%; }
+            input[type=range] { width: 100%; }
+            #container { position: relative; }
+            #container canvas, #overlay { position: absolute; }
+            #overlay { z-index: 1; width: 10%; }
+            #overlay div { padding: 5px; }
+            #loader {
+                border: 5px solid #f3f3f3; /* Light grey */
+                border-top: 5px solid #3d3d3d; /* Grey */
+                border-radius: 50%;
+                width: 40px;
+                height: 40px;
+                animation: spin 1s linear infinite;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                z-index: 2;
+            }
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+        </style>
+    </head>
+    <body>
+      <div id="loader"></div> 
+      <div id="container">
+          <div id="overlay">
+              <div class="range-wrap">
+                <label for="Screen_length">Screen_length (m)</label>
+                <input type="range" class="range" id="Screen_length" min="5" max="30" value="18" step="1">
+                <output class="bubble"></output>
+              </div>
+              <div class="range-wrap">
+                <label for="Screen_height">Screen_height (m)</label>
+                <input type="range" class="range" id="Screen_height" min="4" max="10" value="6" step="1">
+                <output class="bubble"></output>
+              </div>
+              <div class="range-wrap">
+                <label for="Context_depth">Context_depth (m)</label>
+                <input type="range" class="range" id="Context_depth" min="1" max="10" value="7" step="1">
+                <output class="bubble"></output>
+              </div>
+              <div class="range-wrap">
+                <label for="Shape_type">Shape_type</label>
+                <input type="range" class="range" id="Shape_type" min="0" max="1" value="1" step="1">
+                <output class="bubble"></output>
+              </div>
+              <div class="range-wrap">
+                <label for="Polygon_sides">Polygon_sides</label>
+                <input type="range" class="range" id="Polygon_sides" min="3" max="7" value="6" step="1">
+                <output class="bubble"></output>
+              </div>
+              <div class="range-wrap"> 
+                <label for="Random_points">Random_points</label>
+                <input type="range" class="range" id="Random_points"  min="1" max="50" value="18" step="1">
+                <output class="bubble"></output>
+              </div>
+              <div class="range-wrap"> 
+                <label for="Random_seed">Random_seed</label>
+                <input type="range" class="range" id="Random_seed"  min="1" max="100" value="54" step="1">
+                <output class="bubble"></output>
+              </div>
+              <div class="range-wrap"> 
+                <label for="Attractor_weight">Attractor_weight</label>
+                <input type="range" class="range" id="Attractor_weight"  min="3" max="50" value="7" step="1">
+                <output class="bubble"></output>
+              </div>
+              <div><button id="downloadButton" disabled>Download</button></div>
+              <div><a href="Facade_screen_App.gh" download="Facade_screen.App.html">Save source code</a></div>
+          </div>
+      </div>
+    <script type="module" src="script.js"></script>
+    </body>
+</html>
