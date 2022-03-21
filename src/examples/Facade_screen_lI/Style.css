@@ -1,4 +1,6 @@
-.range-wrap {
+  
+  
+  .range-wrap {
     position: relative;
     margin: 0 auto 3rem;
   }
@@ -27,4 +29,18 @@
   body {
     margin: 2rem;
   }
-  
+
+  html{
+
+    background-color: rgba(12, 12, 12, 0);
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 10pt;
+}
+
+h1,h2 {
+
+    /* color: #ff0000; */
+    font-family: 'Courier New', Courier, monospace;
+    background-color: black;
+}  

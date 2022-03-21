@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <link rel="icon" href="data:,">
         <link rel="stylesheet" href="style.css" />
-        <title>Facade_screeen_lb.gh</title>
+        <title>Facade_screeen_App.gh</title>
         <style>
             body {
                 margin: 0;
@@ -14,7 +14,7 @@
             input[type=range] { width: 100%; }
             #container { position: relative; }
             #container canvas, #overlay { position: absolute; }
-            #overlay { z-index: 1; width: 10%; }
+            #overlay { z-index: 1; width: 15%; }
             #overlay div { padding: 5px; }
             #loader {
                 border: 5px solid #f3f3f3; /* Light grey */
@@ -35,9 +35,19 @@
         </style>
     </head>
     <body>
+      
       <div id="loader"></div> 
       <div id="container">
           <div id="overlay">
+              <div>
+                <h1> Facade Screen App </h1>
+                <h2> Gerald Mandevhana </h2>
+            </div>
+            <div>
+              <p id="summary"> This app shows a facade system developed through point attractors.
+                Iterations can be tested by changing the parameters indicated by the sliders
+               </p>
+          </div>
               <div class="range-wrap">
                 <label for="Screen_length">Screen_length (m)</label>
                 <input type="range" class="range" id="Screen_length" min="5" max="30" value="18" step="1">
@@ -45,7 +55,7 @@
               </div>
               <div class="range-wrap">
                 <label for="Screen_height">Screen_height (m)</label>
-                <input type="range" class="range" id="Screen_height" min="4" max="10" value="6" step="1">
+                <input type="range" class="range" id="Screen_height" min="4" max="10" value="8" step="1">
                 <output class="bubble"></output>
               </div>
               <div class="range-wrap">
@@ -75,13 +85,13 @@
               </div>
               <div class="range-wrap"> 
                 <label for="Attractor_weight">Attractor_weight</label>
-                <input type="range" class="range" id="Attractor_weight"  min="3" max="50" value="7" step="1">
+                <input type="range" class="range" id="Attractor_weight"  min="3" max="30" value="7" step="1">
                 <output class="bubble"></output>
               </div>
               <div><button id="downloadButton" disabled>Download</button></div>
               <div><a href="Facade_screen_App.gh" download="Facade_screen.App.html">Save source code</a></div>
-          </div>
+              </div>
       </div>
-    <script type="module" src="script.js"></script>
+    <script type="module" src="script_2.js"></script>
     </body>
 </html>
