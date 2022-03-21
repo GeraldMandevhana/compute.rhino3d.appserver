@@ -17,14 +17,3 @@ The site is published using a Githubpage in this link:https://github.com/GeraldM
 ## Credits
 Facade Screen App is a project of IAAC, Institute of Advanced Architecture of Catalonia developed at Master In Advanced Computation For Architecture & Design in 2021/2022 by student: Gerald Mandevhana, and Faculty: David Andres Leon,and Hesham Shawqy.
 
-## Example
-When we have our testing server up and running, you can visit
-
-https://compute-rhino3d-appserver.herokuapp.com/examples/
-
-To see a sample web application that passes three numbers based on slider positions to the AppServer for solving a grasshopper definition. Results are returned to the web page and new mesh visualizations are created.
-
-----
-## Other Information
-- [API Endpoints](docs/endpoints.md) the server supports
-- [Client Code](docs/clientcode.md) example for calling the AppServer
