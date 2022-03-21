@@ -1,5 +1,9 @@
 // Import libraries
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.126.0/build/three.module.js'
+//This library allows us to add event listener to our 3D objects, just like with HTML DOM nodes.
+//import { InteractionManager } from './build/three.interactive.js'
+// This library allows us to move the camera smoothly  
+//import TWEEN from 'https://cdn.jsdelivr.net/npm/@tweenjs/tween.js@18.5.0/dist/tween.esm.js';
 import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.126.0/examples/jsm/controls/OrbitControls.js'
 import { Rhino3dmLoader } from 'https://cdn.jsdelivr.net/npm/three@0.126.0/examples/jsm/loaders/3DMLoader.js'
 import rhino3dm from 'https://cdn.jsdelivr.net/npm/rhino3dm@0.15.0-beta/rhino3dm.module.js'
@@ -46,6 +50,7 @@ rhino3dm().then(async m => {
     compute()
 })
 
+
 const downloadButton = document.getElementById("downloadButton")
 downloadButton.onclick = download
 
@@ -84,6 +89,8 @@ function getInputs() {
 // more globals
 let scene, camera, renderer, controls
 
+
+
 /**
  * Sets up the scene, camera, renderer, lights and controls and starts the animation
  */
@@ -94,29 +101,79 @@ function init() {
 
     // create a scene and a camera
     scene = new THREE.Scene()
-    scene.background = new THREE.Color(1, 1, 1)
+    //scene.background = new THREE.Color(1, 1, 1)
     camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000)
-    camera.position.set(1, -1, 1) // like perspective view
+    camera.position.set(10, -30, 10) // like perspective view
+    //camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000)
+    //camera.position.set(1, -1, 1) // like perspective view
+
+    //const cameraH = 1;
+    // //change the camera y position
+    //camera.position.z = cameraH;
 
     // very light grey for background, like rhino
-    scene.background = new THREE.Color('whitesmoke')
+    //scene.background = new THREE.Color('whitesmoke')
+
+    // //Start CubeMap
+    // load materials and cube maps
+    // let material, cubeMap
+    // cubeMap = new THREE.CubeTextureLoader()
+    // .setPath('textures/cube/Map/')
+    // .load( [ 'px.jpg', 'nx.jpg', 'py.jpg', 'ny.jpg', 'pz.jpg', 'nz.jpg' ] )
+    // scene.background = cubeMap
+    // //endCubeMap
 
     // create the renderer and add it to the html
     renderer = new THREE.WebGLRenderer({ antialias: true })
     renderer.setPixelRatio( window.devicePixelRatio )
     renderer.setSize(window.innerWidth, window.innerHeight)
+    //enable ShadowMaps
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    //enable Shadowmaps
     document.body.appendChild(renderer.domElement)
 
     // add some controls to orbit the camera
     controls = new OrbitControls(camera, renderer.domElement)
 
+
     // add a directional light
     const directionalLight = new THREE.DirectionalLight( 0xffffff )
-    directionalLight.intensity = 2
+    directionalLight.intensity = 1
+    //directionalLight.position.set(5,5,5)
+    directionalLight.position.set(5,6,5)
+    //directionalLight.position.set(20,2,12)
+    // directionalLight.target.position.set(5,5,0)
+    directionalLight.castShadow = true
+    directionalLight.shadow.bias = -0.001
+    directionalLight.shadow.mapSize.width = 2048
+    directionalLight.shadow.mapSize.height = 2048
+    directionalLight.shadow.camera.near = 0.1
+    directionalLight.shadow.camera.far = 500
+    directionalLight.shadow.camera.left = -20
+    directionalLight.shadow.camera.right = 20
+    directionalLight.shadow.camera.top = 20
+    directionalLight.shadow.camera.bottom = -20
     scene.add( directionalLight )
+    //scene.add(directionalLight.target)
 
-    const ambientLight = new THREE.AmbientLight()
-    scene.add( ambientLight )
+    // add ambient light
+    // const ambientLight = new THREE.AmbientLight()
+    // scene.add( ambientLight )
+    
+    //creating a point light element
+    const pointlight = new THREE.PointLight(0xffffff, 2, 1000);
+    pointlight.position.set(7, 5, 8);
+    // pointlight.castShadow = true
+    // pointlight.shadow.mapSize.width = 2048
+    // pointlight.shadow.mapSize.height = 2048
+    scene.add(pointlight);
+
+    //Add Hemisphere Light
+    // const upColour = 0xFFFF80;
+    // const downColour = 0x4040F;
+    // const hemilight = new THREE.HemisphereLight(upColour,downColour, 1.0);
+    // scene.add(hemilight)
 
     // handle changes in the window size
     window.addEventListener( 'resize', onWindowResize, false )
@@ -161,7 +218,7 @@ function collectResults(responseJson) {
     if( doc !== undefined)
         doc.delete()
 
-    //console.log(values)
+    console.log(values)
     doc = new rhino.File3dm()
 
     // for each output (RH_OUT:*)...
@@ -204,6 +261,24 @@ function collectResults(responseJson) {
                 scene.remove(child)
             }
         })
+
+        ///////////////////////////////////////////////////////////////////////
+
+        // color crvs
+        object.traverse((child) => {
+          if (child.isLine) {
+            if (child.userData.attributes.geometry.userStringCount > 0) {
+              //console.log(child.userData.attributes.geometry.userStrings[0][1])
+              console.log(child.userData.attributes.geometry.userStrings[0][1])
+              const col = child.userData.attributes.geometry.userStrings[0][1];
+              const threeColor = new THREE.Color("rgb(" + col + ")");
+              const mat = new THREE.LineBasicMaterial({ color: threeColor });
+              child.material = mat;
+            }
+          }
+        })
+
+    ///////////////////////////////////////////////////////////////////////  
 
         // add object graph from rhino model to three.js scene
         scene.add( object )
@@ -263,11 +338,28 @@ function onSliderChange () {
 /**
  * The animation loop!
  */
+//  function animate() {
+//   requestAnimationFrame( animate )
+//   controls.update()
+//   renderer.render(scene, camera)
+
 function animate() {
-  requestAnimationFrame( animate )
-  controls.update()
-  renderer.render(scene, camera)
+  scene.traverse(function(child){
+    if (child.isMesh){
+      child.rotation.y +=0.0000
+      child.rotation.z +=0.0002
+      child.rotation.x +=0.0000
+    }
+        else{(child.isLine)
+      child.rotation.y +=0.0000
+      child.rotation.z +=0.0002
+      child.rotation.x +=0.0000
+    }})
+  requestAnimationFrame(animate);
+  renderer.render(scene, camera);
+
 }
+
 
 /**
  * Helper function for window resizes (resets the camera pov and renderer size)
