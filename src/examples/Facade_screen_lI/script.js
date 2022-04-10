@@ -15,7 +15,7 @@ loader.setLibraryPath( 'https://cdn.jsdelivr.net/npm/rhino3dm@0.15.0-beta/' )
 // initialise 'data' object that will be used by compute()
 const data = {
   //definition: 'srf_kmeans.gh',
-  definition: 'Facade_screen_II.gh',
+  definition: 'Facade_screen_III.gh',
   inputs: getInputs()
 }
 const allRanges = document.querySelectorAll(".range-wrap");
